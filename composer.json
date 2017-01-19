@@ -1,0 +1,23 @@
+{
+    "name": "mobilecart/demobundle",
+    "autoload": {
+        "psr-4" : {
+            "MobileCart\\DemoBundle\\" : ""
+        }
+    },
+    "type": "symfony-bundle",
+    "description": "Import Demo Products into Mobile Cart",
+    "keywords": ["shopping", "cart", "e-commerce"],
+    "homepage": "http://mobilecart.io",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jesse Hanson",
+            "email": "jesse@mobilecart.io"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.24",
+        "symfony/framework-bundle": "~2.8"
+    }
+}

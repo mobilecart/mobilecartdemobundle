@@ -57,21 +57,13 @@ class CartDemoInstallCommand extends ContainerAwareCommand
             ],
         ];
 
-        $varSetName = 'T-Shirt';
-
         $varSet = $entityService->findOneBy(EntityConstants::ITEM_VAR_SET, [
-            'name' => $varSetName,
             'object_type' => EntityConstants::PRODUCT,
         ]);
 
         if (!$varSet) {
-            $varSet = $entityService->getInstance(EntityConstants::ITEM_VAR_SET);
-            $varSet->setName($varSetName)
-                ->setObjectType(EntityConstants::PRODUCT);
-
-            $entityService->persist($varSet);
-
-            $output->writeln("Created Variant Set : {$varSetName}");
+            $output->writeln("Product Variant Set not found");
+            return;
         }
 
         foreach($vars as $code => $data) {
@@ -110,16 +102,16 @@ class CartDemoInstallCommand extends ContainerAwareCommand
             $message = "Created ItemVar: {$label} for Object Type: {$objectType}";
             $output->writeln($message);
 
-            if (isset($varData['options'])) {
-                $options = $varData['options'];
-                foreach($options as $optionData) {
+            if (isset($data['options'])) {
+                $options = $data['options'];
+                foreach($options as $optionKey => $optionValue) {
                     $option = $entityService->getInstance(EntityConstants::ITEM_VAR_OPTION_VARCHAR);
                     $option->setItemVar($itemVar)
-                        ->setUrlValue($optionData['url_value'])
-                        ->setValue($optionData['value']);
+                        ->setUrlValue($optionKey)
+                        ->setValue($optionValue);
 
                     $entityService->persist($option);
-                    $message = "Added Option: " . $optionData['value'];
+                    $message = "Added Option: " . $optionKey;
                     $output->writeln($message);
                 }
             }
@@ -301,7 +293,7 @@ class CartDemoInstallCommand extends ContainerAwareCommand
                                 'size' => $size,
                             ]);
 
-                            $output->writeln("Created Simple Product: " . $spSlug);
+                            $output->writeln("Created Simple Product: " . $spSlug . ", color: {$color} , size: {$size}");
 
                             $cp = $entityService->getInstance('category_product');
                             $cp->setCategory($parentCategory)

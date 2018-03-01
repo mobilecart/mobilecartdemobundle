@@ -18,6 +18,6 @@
     ],
     "require": {
         "php": ">=5.5.24",
-        "symfony/framework-bundle": "~2.8"
+        "symfony/framework-bundle": ">=2.8"
     }
 }

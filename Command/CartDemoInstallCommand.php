@@ -300,6 +300,26 @@ class CartDemoInstallCommand extends ContainerAwareCommand
                                 ->setProduct($sp);
 
                             $entityService->persist($cp);
+
+                            if ($color == 'Red') {
+
+                                $spi = $entityService->getInstance('product_image');
+                                $spi->setParent($sp)
+                                    ->setPath('bundles/mobilecartdemo/images/tshirt_red_front.png')
+                                    ->setCode('list_grid');
+
+                                $entityService->persist($spi);
+
+                            } else {
+
+                                $spi = $entityService->getInstance('product_image');
+                                $spi->setParent($sp)
+                                    ->setPath('bundles/mobilecartdemo/images/tshirt_white_front.png')
+                                    ->setCode('list_grid');
+
+                                $entityService->persist($spi);
+
+                            }
                         }
 
                         $pcSize = $entityService->getInstance('product_config');
